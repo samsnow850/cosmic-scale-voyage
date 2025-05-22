@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import Planet from '../components/Planet';
@@ -213,12 +214,12 @@ const Index = () => {
           {/* Sun */}
           <div className="absolute left-16 top-1/2 transform -translate-y-1/2 flex items-center justify-center">
             <div 
-              className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 shadow-2xl animate-pulse"
+              className="w-48 h-48 rounded-full bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 shadow-2xl animate-pulse"
               style={{
-                boxShadow: '0 0 60px rgba(255, 165, 0, 0.8)'
+                boxShadow: '0 0 80px rgba(255, 165, 0, 0.8)'
               }}
             />
-            <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-white text-lg font-bold">
+            <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 text-white text-lg font-bold">
               Sun
             </div>
           </div>
