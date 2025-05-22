@@ -1,73 +1,114 @@
-# Welcome to your Lovable project
+# 🌌 Scale of the Solar System – Mini Project
 
-## Project info
+Welcome to **model.samuelesnow.co**, a visually rich, animated, and interactive website built to demonstrate the **true scale of our Solar System** as part of a school project for:
 
-**URL**: https://lovable.dev/projects/c7ccc149-a708-4bcc-80db-dd0579ae80dc
+**Class**: Chemistry & Earth and Space Science - C  
+**Student**: Samuel Snow  
+**Project Type**: Homework  
+**Due Date**: May 23, 2025 @ 12:30 PM  
+**Max Points**: 100
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Project Overview
 
-**Use Lovable**
+This project creates a **to-scale, space-themed simulation of the Solar System**. It features:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c7ccc149-a708-4bcc-80db-dd0579ae80dc) and start prompting.
+- Accurate planetary distances and sizes using scaled values  
+- Clickable planets with detailed pop-up overlays  
+- Smooth animations, modern design, and mobile responsiveness  
+- A horizontal scrolling layout to simulate the vastness of space  
 
-Changes made via Lovable will be committed automatically to this repo.
+🔗 **Live Site**: [https://model.samuelesnow.co](https://model.samuelesnow.co)  
+🎨 **Design Theme**: Clean, dark starfield background with elegant UI effects
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📐 Scaling Details
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 🌍 Scaled Planet Sizes
 
-Follow these steps:
+| Planet   | Real Diameter (km) | Scaled Diameter (inches) |
+|----------|--------------------|---------------------------|
+| Mercury  | 4,879              | 0.2″                      |
+| Venus    | 12,104             | 0.5″                      |
+| Earth    | 12,742             | 0.5″                      |
+| Mars     | 6,779              | 0.3″                      |
+| Jupiter  | 139,820            | 5.5″                      |
+| Saturn   | 116,460            | 4.6″                      |
+| Uranus   | 50,724             | 2.0″                      |
+| Neptune  | 49,244             | 2.0″                      |
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### ☀️ Scaled Distances from the Sun
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1 Astronomical Unit (AU) = **10 inches**
 
-# Step 3: Install the necessary dependencies.
-npm i
+| Planet   | Distance (AU) | Distance (inches) |
+|----------|----------------|-------------------|
+| Mercury  | 3.9 AU         | 39″               |
+| Venus    | 7.2 AU         | 72″               |
+| Earth    | 10 AU          | 100″              |
+| Mars     | 15.2 AU        | 152″              |
+| Jupiter  | 52 AU          | 520″              |
+| Saturn   | 95 AU          | 950″              |
+| Uranus   | 192 AU         | 1920″             |
+| Neptune  | 301 AU         | 3010″             |
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## ✨ Features
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- 🌐 **Interactive UI**: Clickable planets reveal overlays with key data:
+  - Name
+  - Real diameter in kilometers
+  - Scaled diameter in inches
+  - Distance from the Sun (AU and inches)
 
-**Use GitHub Codespaces**
+- 🖼️ **Animations**: Hover effects, transitions, and smooth movement bring the Solar System to life.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- 📱 **Responsive Design**: Works on desktop, tablet, and mobile screens.
 
-## What technologies are used for this project?
+- 🌠 **Theme**: Black starry background with clean, modern fonts and layout.
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🛠️ Built With
 
-## How can I deploy this project?
+- **HTML, CSS & JavaScript**
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.dev/)
 
-Simply open [Lovable](https://lovable.dev/projects/c7ccc149-a708-4bcc-80db-dd0579ae80dc) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
+## 🧭 Project Goals
 
-Yes, you can!
+This site is an educational and visual tool that helps users understand the **massive scale differences** between planets and their orbits. The aim is to engage students through exploration and interaction.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🧑‍🚀 Next Steps
+
+- [ ] Add fun facts to each overlay
+- [ ] Include a dynamic Sun animation or light glow
+- [ ] Improve orbit path visuals (optional)
+
+---
+
+## 📤 Deployment
+
+Hosted and published via [Lovable](https://lovable.dev) — a no-code visual editor. To update or edit:
+
+- Visit the [project page](https://lovable.dev/projects/c7ccc149-a708-4bcc-80db-dd0579ae80dc)
+- Use prompt-based editing or sync via GitHub
+
+---
+
+## 📚 Licensing
+
+This project is for educational purposes and student use. Reuse is welcome with attribution.
+
+---
+
+Enjoy your journey through space! 🌠
