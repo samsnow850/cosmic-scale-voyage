@@ -31,15 +31,14 @@ const Planet: React.FC<PlanetProps> = ({
       style={{
         left: `${position}px`,
         top: '50%',
-        transform: 'translateY(-50%)',
-        animation: 'orbit 60s linear infinite',
+        transform: 'translateY(-50%)'
       }}
       onClick={onClick}
     >
       <Tooltip>
         <TooltipTrigger asChild>
           <div
-            className="rounded-full shadow-lg transition-all duration-300 group-hover:shadow-2xl animate-[float_5s_ease-in-out_infinite]"
+            className="rounded-full shadow-lg transition-all duration-300 group-hover:shadow-2xl"
             style={{
               width: `${sizeInPixels}px`,
               height: `${sizeInPixels}px`,
