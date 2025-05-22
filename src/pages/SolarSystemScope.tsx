@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import BackgroundMusic from '../components/BackgroundMusic';
 
 const SolarSystemScope = () => {
   const navigate = useNavigate();
@@ -18,15 +19,18 @@ const SolarSystemScope = () => {
           Interactive 3D Solar System
         </h1>
         
-        <Button 
-          onClick={handleClose}
-          variant="outline" 
-          size="icon"
-          className="absolute top-0 right-0 bg-black/50 border-gray-700 hover:bg-black/80 text-white"
-          aria-label="Close and return to homepage"
-        >
-          <X />
-        </Button>
+        <div className="absolute top-0 right-0 flex gap-2">
+          <BackgroundMusic className="mr-2" />
+          <Button 
+            onClick={handleClose}
+            variant="outline" 
+            size="icon"
+            className="bg-black/50 border-gray-700 hover:bg-black/80 text-white"
+            aria-label="Close and return to homepage"
+          >
+            <X />
+          </Button>
+        </div>
       </div>
       
       <div className="w-full max-w-6xl aspect-video">

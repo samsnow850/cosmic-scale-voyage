@@ -3,6 +3,7 @@ import { Slider } from "@/components/ui/slider";
 import { Link } from "react-router-dom";
 import Planet from '../components/Planet';
 import PlanetOverlay from '../components/PlanetOverlay';
+import BackgroundMusic from '../components/BackgroundMusic';
 
 interface PlanetData {
   name: string;
@@ -185,12 +186,15 @@ const Index = () => {
         <p className="text-lg text-gray-400 mb-4">By Samuel Snow • Chemistry & Earth and Space Science - C</p>
         <p className="text-sm text-gray-500 mb-6">Click on any planet to explore its details • 1 AU = 10 inches</p>
         
-        <Link 
-          to="/3d-view" 
-          className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 mb-6"
-        >
-          Explore 3D Solar System
-        </Link>
+        <div className="flex justify-center items-center gap-3">
+          <Link 
+            to="/3d-view" 
+            className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300"
+          >
+            Explore 3D Solar System
+          </Link>
+          <BackgroundMusic />
+        </div>
       </div>
 
       {/* Scale Slider */}
