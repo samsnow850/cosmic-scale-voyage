@@ -1,10 +1,7 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import Planet from '../components/Planet';
 import PlanetOverlay from '../components/PlanetOverlay';
-import { Button } from "@/components/ui/button";
-import { Eye, EyeOff } from "lucide-react";
 
 interface PlanetData {
   name: string;
@@ -21,7 +18,6 @@ const Index = () => {
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null);
   const [scaleMultiplier, setScaleMultiplier] = useState<number>(1);
   const [activePlanet, setActivePlanet] = useState<string | null>(null);
-  const [showOverview, setShowOverview] = useState<boolean>(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const planetsData: PlanetData[] = [
@@ -157,10 +153,6 @@ const Index = () => {
     setScaleMultiplier(value[0]);
   };
 
-  const toggleOverview = () => {
-    setShowOverview(!showOverview);
-  };
-
   return (
     <div className="min-h-screen bg-black overflow-auto">
       {/* Stars background */}
@@ -262,54 +254,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-
-      {/* Toggle Overview Button */}
-      <div className="fixed bottom-20 right-4 z-20">
-        <Button
-          onClick={toggleOverview}
-          variant="outline"
-          size="icon"
-          className="bg-gray-900 bg-opacity-80 border border-gray-700 hover:bg-gray-800 text-white"
-          aria-label={showOverview ? "Hide overview" : "Show overview"}
-          title={showOverview ? "Hide overview" : "Show overview"}
-        >
-          {showOverview ? <EyeOff size={18} /> : <Eye size={18} />}
-        </Button>
-      </div>
-
-      {/* Mini-map */}
-      {showOverview && (
-        <div className="fixed bottom-4 right-4 z-20 bg-gray-900 bg-opacity-80 border border-gray-700 rounded-lg p-3 w-64 transition-opacity duration-300">
-          <h3 className="text-white text-sm font-semibold mb-2">Solar System Overview</h3>
-          <div className="relative h-8 bg-gray-800 rounded overflow-hidden">
-            {planetsData.map(planet => (
-              <div 
-                key={planet.name}
-                className={`absolute h-full w-1 transition-all duration-300 ${planet.name === activePlanet ? 'bg-blue-500' : 'bg-gray-600'}`}
-                style={{ 
-                  left: `${(planet.distanceInches / 3010) * 100}%`,
-                  transform: 'translateX(-50%)'
-                }}
-                title={planet.name}
-              />
-            ))}
-            <div 
-              className="absolute top-full left-0 h-1 bg-white"
-              style={{ 
-                width: '100%',
-                transform: `scaleX(${scrollContainerRef.current ? scrollContainerRef.current.scrollLeft / totalWidth : 0})`
-              }}
-            />
-          </div>
-          <div className="flex justify-between mt-1 text-xs text-gray-400">
-            <span>Sun</span>
-            <span>Neptune (3010″)</span>
-          </div>
-          <div className="text-center text-xs text-blue-400 mt-1">
-            {activePlanet && `Viewing: ${activePlanet}`}
-          </div>
-        </div>
-      )}
 
       {/* Instructions */}
       <div className="relative z-10 p-6 text-center">
