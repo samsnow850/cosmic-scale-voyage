@@ -106,8 +106,33 @@
     }
   }
 
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes orbit {
+    0% {
+      transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+      transform: translateY(-50%) rotate(360deg);
+    }
+  }
+
   .animate-scale-in {
     animation: scale-in 0.3s ease-out;
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
   }
 
   /* Custom scrollbar for webkit browsers */
