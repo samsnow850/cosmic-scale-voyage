@@ -1,8 +1,6 @@
-
 import React from 'react';
 import { X, Plus, Thermometer, Moon, Clock, Rocket, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
 interface PlanetData {
   name: string;
   realDiameter: number;
@@ -20,42 +18,31 @@ interface PlanetData {
   travelTime: string;
   lightTime: string;
 }
-
 interface PlanetOverlayProps {
   planet: PlanetData | null;
   onClose: () => void;
   onAddToComparison: (planet: PlanetData) => void;
 }
-
-const PlanetOverlay: React.FC<PlanetOverlayProps> = ({ planet, onClose, onAddToComparison }) => {
+const PlanetOverlay: React.FC<PlanetOverlayProps> = ({
+  planet,
+  onClose,
+  onAddToComparison
+}) => {
   if (!planet) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+  return <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
       <div className="bg-gray-900 border border-gray-700 rounded-xl p-6 max-w-2xl w-full mx-4 relative animate-scale-in max-h-[90vh] overflow-y-auto">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200"
-        >
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200">
           <X size={24} />
         </button>
         
         <div className="flex items-center mb-6">
-          <div
-            className="w-20 h-20 rounded-full mr-4 shadow-lg"
-            style={{
-              background: planet.color,
-              boxShadow: `0 0 20px ${planet.color}40`,
-            }}
-          />
+          <div className="w-20 h-20 rounded-full mr-4 shadow-lg" style={{
+          background: planet.color,
+          boxShadow: `0 0 20px ${planet.color}40`
+        }} />
           <div>
             <h2 className="text-3xl font-bold text-white mb-2">{planet.name}</h2>
-            <Button
-              onClick={() => onAddToComparison(planet)}
-              size="sm"
-              variant="outline"
-              className="text-white border-white hover:bg-white hover:text-black"
-            >
+            <Button onClick={() => onAddToComparison(planet)} size="sm" variant="outline" className="border-white text-stone-950 bg-slate-50">
               <Plus className="w-4 h-4 mr-1" />
               Add to Comparison
             </Button>
@@ -159,8 +146,6 @@ const PlanetOverlay: React.FC<PlanetOverlayProps> = ({ planet, onClose, onAddToC
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default PlanetOverlay;
