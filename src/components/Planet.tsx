@@ -1,7 +1,6 @@
+
 import React from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
 
 interface PlanetProps {
   name: string;
@@ -33,7 +32,6 @@ const Planet: React.FC<PlanetProps> = ({
   color,
   position,
   onClick,
-  onAddToComparison,
   funFact,
   orbitalPeriod,
   dayLength,
@@ -109,20 +107,9 @@ const Planet: React.FC<PlanetProps> = ({
         </TooltipContent>
       </Tooltip>
       
-      {/* Planet name and comparison button */}
-      <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-        <div className="text-white text-sm font-medium mb-2 text-center">{name}</div>
-        <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            onAddToComparison();
-          }}
-          size="sm"
-          className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2"
-        >
-          <Plus className="w-3 h-3 mr-1" />
-          Compare
-        </Button>
+      {/* Planet name only on hover */}
+      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+        <div className="text-white text-sm font-medium text-center">{name}</div>
       </div>
     </div>
   );
