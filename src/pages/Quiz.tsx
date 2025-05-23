@@ -238,22 +238,22 @@ const Quiz = () => {
                 <Button
                   key={index}
                   onClick={() => handleAnswerSelect(index)}
-                  variant={selectedAnswer === index ? "default" : "outline"}
-                  className={`w-full text-left justify-start h-auto p-4 ${
+                  variant="outline"
+                  className={`w-full text-left justify-start h-auto p-4 text-white border-2 ${
                     selectedAnswer === index 
-                      ? "bg-blue-600 hover:bg-blue-700 text-white" 
-                      : "text-white border-gray-600 hover:bg-gray-800"
+                      ? "bg-blue-600 border-blue-500 hover:bg-blue-700" 
+                      : "bg-gray-800 border-gray-600 hover:bg-gray-700"
                   } ${
                     showResult && index === questions[currentQuestion].correct
-                      ? "bg-green-600 hover:bg-green-700"
+                      ? "bg-green-600 border-green-500 hover:bg-green-700"
                       : showResult && selectedAnswer === index && index !== questions[currentQuestion].correct
-                      ? "bg-red-600 hover:bg-red-700"
+                      ? "bg-red-600 border-red-500 hover:bg-red-700"
                       : ""
                   }`}
                   disabled={showResult}
                 >
-                  <span className="mr-3 font-bold">{String.fromCharCode(65 + index)}.</span>
-                  {option}
+                  <span className="mr-3 font-bold text-white">{String.fromCharCode(65 + index)}.</span>
+                  <span className="text-white">{option}</span>
                 </Button>
               ))}
             </div>
