@@ -108,7 +108,7 @@ const Admin = () => {
               <Home className="w-4 h-4 mr-2" />
               Home
             </Button>
-            <Button variant="outline" onClick={handleLogout} size="sm">
+            <Button variant="outline" onClick={handleLogout} size="sm" className="bg-slate-950 hover:bg-slate-800">
               <LogOut className="w-4 h-4 mr-2" />
               Logout
             </Button>
