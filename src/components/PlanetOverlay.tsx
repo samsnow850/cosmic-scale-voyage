@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Plus, Thermometer, Moon, Clock, Rocket, Zap } from 'lucide-react';
+import { X, Thermometer, Moon, Clock, Rocket, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 interface PlanetData {
   name: string;
@@ -42,10 +42,6 @@ const PlanetOverlay: React.FC<PlanetOverlayProps> = ({
         }} />
           <div>
             <h2 className="text-3xl font-bold text-white mb-2">{planet.name}</h2>
-            <Button onClick={() => onAddToComparison(planet)} size="sm" variant="outline" className="border-white text-stone-950 bg-slate-50">
-              <Plus className="w-4 h-4 mr-1" />
-              Add to Comparison
-            </Button>
           </div>
         </div>
 
