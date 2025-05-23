@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
@@ -119,8 +118,7 @@ const Planet: React.FC<PlanetProps> = ({
             onAddToComparison();
           }}
           size="sm"
-          variant="outline"
-          className="text-white border-white hover:bg-white hover:text-black"
+          className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2"
         >
           <Plus className="w-3 h-3 mr-1" />
           Compare
