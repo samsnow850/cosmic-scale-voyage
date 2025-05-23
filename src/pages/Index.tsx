@@ -28,6 +28,25 @@ interface PlanetData {
   lightTime: string; // light travel time from Earth
 }
 const Index = () => {
+  // Sun data
+  const sunData: PlanetData = {
+    name: 'Sun',
+    realDiameter: 1392700,
+    scaledSize: 5.46,
+    distanceAU: 0,
+    distanceInches: 0,
+    color: 'linear-gradient(45deg, #FFD700 0%, #FFA500 50%, #FF4500 100%)',
+    description: 'The Sun is the star at the center of our Solar System. It is a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core.',
+    funFact: 'The Sun contains 99.86% of the mass in the Solar System and could fit about 1.3 million Earths inside it!',
+    orbitalPeriod: 0,
+    dayLength: 609.12,
+    minTemp: 5778,
+    maxTemp: 15000000,
+    moons: 8,
+    travelTime: 'Impossible - too hot!',
+    lightTime: '0 seconds (you are looking at it!)'
+  };
+
   // Planet data with all the information
   const planetsData: PlanetData[] = [{
     name: 'Mercury',
@@ -238,6 +257,7 @@ const Index = () => {
     const frequencies: {
       [key: string]: number;
     } = {
+      'Sun': 196.00,
       'Mercury': 523.25,
       'Venus': 587.33,
       'Earth': 659.25,
@@ -356,9 +376,16 @@ const Index = () => {
 
           {/* Sun */}
           <div className="absolute left-16 top-1/2 transform -translate-y-1/2 flex items-center justify-center">
-            <div className="w-48 h-48 rounded-full bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 shadow-2xl" style={{
-            boxShadow: '0 0 80px rgba(255, 165, 0, 0.8)'
-          }} />
+            <div 
+              className="w-48 h-48 rounded-full bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 shadow-2xl cursor-pointer transition-all duration-300 hover:scale-110" 
+              style={{
+                boxShadow: '0 0 80px rgba(255, 165, 0, 0.8)'
+              }}
+              onClick={() => {
+                setSelectedPlanet(sunData);
+                playPlanetSound('Sun');
+              }}
+            />
             <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 text-white text-lg font-bold">
               Sun
             </div>
