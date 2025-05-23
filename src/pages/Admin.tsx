@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -7,64 +6,87 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { 
-  Users, 
-  BarChart3, 
-  Settings, 
-  Database, 
-  Shield, 
-  Activity,
-  Home,
-  LogOut,
-  Eye,
-  Download,
-  RefreshCw
-} from 'lucide-react';
+import { Users, BarChart3, Settings, Database, Shield, Activity, Home, LogOut, Eye, Download, RefreshCw } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-
 const Admin = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [stats, setStats] = useState({
     totalUsers: 1247,
     activeUsers: 892,
     pageViews: 15463,
     conversionRate: 3.2
   });
-
-  const [activityData] = useState([
-    { name: 'Mon', visits: 2400, users: 400 },
-    { name: 'Tue', visits: 1398, users: 300 },
-    { name: 'Wed', visits: 9800, users: 800 },
-    { name: 'Thu', visits: 3908, users: 500 },
-    { name: 'Fri', visits: 4800, users: 600 },
-    { name: 'Sat', visits: 3800, users: 450 },
-    { name: 'Sun', visits: 4300, users: 520 }
-  ]);
-
-  const [recentUsers] = useState([
-    { id: 1, name: 'John Doe', email: 'john@example.com', status: 'active', lastLogin: '2 mins ago' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'active', lastLogin: '1 hour ago' },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'inactive', lastLogin: '2 days ago' },
-    { id: 4, name: 'Alice Brown', email: 'alice@example.com', status: 'active', lastLogin: '30 mins ago' }
-  ]);
-
+  const [activityData] = useState([{
+    name: 'Mon',
+    visits: 2400,
+    users: 400
+  }, {
+    name: 'Tue',
+    visits: 1398,
+    users: 300
+  }, {
+    name: 'Wed',
+    visits: 9800,
+    users: 800
+  }, {
+    name: 'Thu',
+    visits: 3908,
+    users: 500
+  }, {
+    name: 'Fri',
+    visits: 4800,
+    users: 600
+  }, {
+    name: 'Sat',
+    visits: 3800,
+    users: 450
+  }, {
+    name: 'Sun',
+    visits: 4300,
+    users: 520
+  }]);
+  const [recentUsers] = useState([{
+    id: 1,
+    name: 'John Doe',
+    email: 'john@example.com',
+    status: 'active',
+    lastLogin: '2 mins ago'
+  }, {
+    id: 2,
+    name: 'Jane Smith',
+    email: 'jane@example.com',
+    status: 'active',
+    lastLogin: '1 hour ago'
+  }, {
+    id: 3,
+    name: 'Bob Johnson',
+    email: 'bob@example.com',
+    status: 'inactive',
+    lastLogin: '2 days ago'
+  }, {
+    id: 4,
+    name: 'Alice Brown',
+    email: 'alice@example.com',
+    status: 'active',
+    lastLogin: '30 mins ago'
+  }]);
   useEffect(() => {
     const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
     if (!isAuthenticated) {
       navigate('/admin-login');
     }
   }, [navigate]);
-
   const handleLogout = () => {
     sessionStorage.removeItem('adminAuthenticated');
     toast({
       title: "Logged Out",
-      description: "You have been logged out successfully.",
+      description: "You have been logged out successfully."
     });
     navigate('/');
   };
-
   const refreshStats = () => {
     setStats(prev => ({
       ...prev,
@@ -73,18 +95,16 @@ const Admin = () => {
     }));
     toast({
       title: "Stats Refreshed",
-      description: "Dashboard data has been updated.",
+      description: "Dashboard data has been updated."
     });
   };
-
-  return (
-    <div className="min-h-screen bg-gray-950 text-white">
+  return <div className="min-h-screen bg-gray-950 text-white">
       {/* Header */}
       <header className="bg-gray-900 border-b border-gray-800 px-6 py-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold text-blue-400">Admin Dashboard</h1>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => navigate('/')} size="sm">
+            <Button variant="outline" onClick={() => navigate('/')} size="sm" className="bg-slate-950 hover:bg-slate-800">
               <Home className="w-4 h-4 mr-2" />
               Home
             </Button>
@@ -165,13 +185,11 @@ const Admin = () => {
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                       <XAxis dataKey="name" stroke="#9CA3AF" />
                       <YAxis stroke="#9CA3AF" />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: '#1F2937', 
-                          border: '1px solid #374151',
-                          borderRadius: '6px'
-                        }}
-                      />
+                      <Tooltip contentStyle={{
+                      backgroundColor: '#1F2937',
+                      border: '1px solid #374151',
+                      borderRadius: '6px'
+                    }} />
                       <Bar dataKey="visits" fill="#3B82F6" />
                       <Bar dataKey="users" fill="#10B981" />
                     </BarChart>
@@ -198,8 +216,7 @@ const Admin = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {recentUsers.map((user) => (
-                      <TableRow key={user.id} className="border-gray-700">
+                    {recentUsers.map(user => <TableRow key={user.id} className="border-gray-700">
                         <TableCell className="text-white">{user.name}</TableCell>
                         <TableCell className="text-gray-300">{user.email}</TableCell>
                         <TableCell>
@@ -208,8 +225,7 @@ const Admin = () => {
                           </Badge>
                         </TableCell>
                         <TableCell className="text-gray-300">{user.lastLogin}</TableCell>
-                      </TableRow>
-                    ))}
+                      </TableRow>)}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -317,8 +333,6 @@ const Admin = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Admin;
