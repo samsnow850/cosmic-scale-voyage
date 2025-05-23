@@ -271,7 +271,7 @@ const Quiz = () => {
 
             <div className="flex justify-between mt-6">
               <Link to="/">
-                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+                <Button className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2">
                   <Home className="w-4 h-4 mr-2" />
                   Back to Solar System
                 </Button>
@@ -280,7 +280,7 @@ const Quiz = () => {
               <Button 
                 onClick={handleNextQuestion}
                 disabled={selectedAnswer === null || showResult}
-                className="bg-blue-600 hover:bg-blue-700"
+                className="bg-blue-600 hover:bg-blue-700 text-white"
               >
                 {currentQuestion === questions.length - 1 ? "Finish Quiz" : "Next Question"}
               </Button>

@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
@@ -314,7 +313,7 @@ const Index = () => {
           </div>
           <div className="flex gap-2">
             <Link to="/quiz">
-              <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+              <Button className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2">
                 Quiz Mode
               </Button>
             </Link>
@@ -335,18 +334,16 @@ const Index = () => {
           
           <Button
             onClick={() => setIsAnimating(!isAnimating)}
-            variant="outline"
+            className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2"
             size="sm"
-            className="text-white border-white"
           >
             {isAnimating ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
           </Button>
           
           <Button
             onClick={() => setShowOrbitalPaths(!showOrbitalPaths)}
-            variant="outline"
+            className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2"
             size="sm"
-            className="text-white border-white"
           >
             {showOrbitalPaths ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             Orbits
@@ -354,9 +351,8 @@ const Index = () => {
           
           <Button
             onClick={() => setShowLightVisualization(!showLightVisualization)}
-            variant="outline"
+            className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2"
             size="sm"
-            className="text-white border-white"
           >
             <Zap className="w-4 h-4" />
             Light Speed
@@ -364,9 +360,8 @@ const Index = () => {
           
           <Button
             onClick={() => setShowSizeComparison(!showSizeComparison)}
-            variant="outline"
+            className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2"
             size="sm"
-            className="text-white border-white"
           >
             Size Mode
           </Button>
