@@ -6,7 +6,6 @@ import { Search, Play, Pause, RotateCcw, Zap, Rocket, Eye, EyeOff } from 'lucide
 import Planet from '../components/Planet';
 import PlanetOverlay from '../components/PlanetOverlay';
 import ComparisonPanel from '../components/ComparisonPanel';
-import InfoPanel from '../components/InfoPanel';
 import AsteroidBelt from '../components/AsteroidBelt';
 import OrbitalPaths from '../components/OrbitalPaths';
 import { Link } from 'react-router-dom';
@@ -422,9 +421,6 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Info Panel */}
-      <InfoPanel activePlanet={activePlanet} planetsData={planetsData} />
-
       {/* Instructions */}
       <div className="relative z-10 p-6 text-center">
         <p className="text-gray-400 text-sm max-w-2xl mx-auto">
@@ -440,4 +436,5 @@ const Index = () => {
       {comparisonPlanets.length > 0 && <ComparisonPanel planets={comparisonPlanets} onRemove={removeFromComparison} onClose={() => setComparisonPlanets([])} />}
     </div>;
 };
+
 export default Index;
