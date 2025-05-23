@@ -309,10 +309,15 @@ const Index = () => {
             <p className="text-xl text-gray-300 mb-1">Interactive Mini-Project</p>
             <p className="text-lg text-gray-400 mb-4">By Samuel Snow • Chemistry & Earth and Space Science - C</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-col">
             <Link to="/quiz">
-              <Button className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2">
+              <Button className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2 w-full">
                 Quiz Mode
+              </Button>
+            </Link>
+            <Link to="/changelog">
+              <Button className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-white border-2 w-full">
+                Changelog
               </Button>
             </Link>
           </div>
@@ -419,7 +424,7 @@ const Index = () => {
       <div className="relative z-10 p-6 text-center">
         <p className="text-gray-400 text-sm max-w-2xl mx-auto">
           Scroll horizontally to explore the vast distances between planets. 
-          Click planets for details, use search to jump to specific planets, and try the quiz mode!
+          Click planets for details and try the quiz mode!
         </p>
       </div>
 
