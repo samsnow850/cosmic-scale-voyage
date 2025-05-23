@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,146 @@ interface PlanetData {
 }
 
 const Index = () => {
+  // Planet data with all the information
+  const planetsData: PlanetData[] = [
+    {
+      name: 'Mercury',
+      realDiameter: 4879,
+      scaledSize: 0.019,
+      distanceAU: 0.39,
+      distanceInches: 39.0,
+      color: 'linear-gradient(45deg, #8C7853 0%, #D4AF37 50%, #8C7853 100%)',
+      description: 'The smallest planet in our solar system and nearest to the Sun, Mercury is only slightly larger than Earth\'s Moon.',
+      funFact: 'A year on Mercury takes only 88 Earth days, but a day on Mercury lasts 176 Earth days!',
+      orbitalPeriod: 88,
+      dayLength: 4222.6,
+      minTemp: -173,
+      maxTemp: 427,
+      moons: 0,
+      travelTime: '6-7 months',
+      lightTime: '3.2 minutes'
+    },
+    {
+      name: 'Venus',
+      realDiameter: 12104,
+      scaledSize: 0.047,
+      distanceAU: 0.72,
+      distanceInches: 72.0,
+      color: 'linear-gradient(45deg, #FFC649 0%, #FF8C00 50%, #FFA500 100%)',
+      description: 'Venus is the second planet from the Sun and is Earth\'s closest planetary neighbor.',
+      funFact: 'Venus rotates backwards and has the hottest surface temperature of any planet in our solar system!',
+      orbitalPeriod: 225,
+      dayLength: 5832.5,
+      minTemp: 462,
+      maxTemp: 462,
+      moons: 0,
+      travelTime: '9 months',
+      lightTime: '6 minutes'
+    },
+    {
+      name: 'Earth',
+      realDiameter: 12756,
+      scaledSize: 0.050,
+      distanceAU: 1.0,
+      distanceInches: 100.0,
+      color: 'linear-gradient(45deg, #6B93D6 0%, #4CAF50 30%, #87CEEB 70%, #4169E1 100%)',
+      description: 'Our home planet is the third planet from the Sun, and the only place we know of so far that\'s inhabited by living things.',
+      funFact: 'Earth is the only planet in our solar system known to harbor life!',
+      orbitalPeriod: 365,
+      dayLength: 24,
+      minTemp: -89,
+      maxTemp: 58,
+      moons: 1,
+      travelTime: 'You are here!',
+      lightTime: '8.3 minutes from Sun'
+    },
+    {
+      name: 'Mars',
+      realDiameter: 6792,
+      scaledSize: 0.027,
+      distanceAU: 1.52,
+      distanceInches: 152.0,
+      color: 'linear-gradient(45deg, #CD5C5C 0%, #FF4500 50%, #B22222 100%)',
+      description: 'Mars is the fourth planet from the Sun – a dusty, cold, desert world with a very thin atmosphere.',
+      funFact: 'Mars has the largest volcano in the solar system, Olympus Mons, which is about 13.6 miles high!',
+      orbitalPeriod: 687,
+      dayLength: 24.6,
+      minTemp: -87,
+      maxTemp: -5,
+      moons: 2,
+      travelTime: '6-9 months',
+      lightTime: '12.7 minutes'
+    },
+    {
+      name: 'Jupiter',
+      realDiameter: 142984,
+      scaledSize: 0.561,
+      distanceAU: 5.2,
+      distanceInches: 520.0,
+      color: 'linear-gradient(45deg, #D2691E 0%, #CD853F 30%, #F4A460 70%, #DEB887 100%)',
+      description: 'Jupiter is the fifth planet from the Sun and the largest in the Solar System.',
+      funFact: 'Jupiter has more than double the mass of all the other planets combined!',
+      orbitalPeriod: 4333,
+      dayLength: 9.9,
+      minTemp: -108,
+      maxTemp: -108,
+      moons: 95,
+      travelTime: '13 months - 6 years',
+      lightTime: '43.3 minutes'
+    },
+    {
+      name: 'Saturn',
+      realDiameter: 120536,
+      scaledSize: 0.473,
+      distanceAU: 9.5,
+      distanceInches: 950.0,
+      color: 'linear-gradient(45deg, #FAD5A5 0%, #FFDB58 50%, #F0E68C 100%)',
+      description: 'Saturn is the sixth planet from the Sun and the second largest planet in our solar system.',
+      funFact: 'Saturn is less dense than water – it would float in a bathtub if you could find one big enough!',
+      orbitalPeriod: 10759,
+      dayLength: 10.7,
+      minTemp: -139,
+      maxTemp: -139,
+      moons: 146,
+      travelTime: '6-7 years',
+      lightTime: '79.3 minutes'
+    },
+    {
+      name: 'Uranus',
+      realDiameter: 51118,
+      scaledSize: 0.201,
+      distanceAU: 19.2,
+      distanceInches: 1920.0,
+      color: 'linear-gradient(45deg, #4FD0E7 0%, #00CED1 50%, #40E0D0 100%)',
+      description: 'Uranus is the seventh planet from the Sun and has the third-largest planetary radius in our solar system.',
+      funFact: 'Uranus rotates on its side! Its axis of rotation is tilted sideways at almost 90 degrees.',
+      orbitalPeriod: 30687,
+      dayLength: 17.2,
+      minTemp: -197,
+      maxTemp: -197,
+      moons: 27,
+      travelTime: '8.5-9.5 years',
+      lightTime: '2.7 hours'
+    },
+    {
+      name: 'Neptune',
+      realDiameter: 49528,
+      scaledSize: 0.194,
+      distanceAU: 30.1,
+      distanceInches: 3010.0,
+      color: 'linear-gradient(45deg, #4169E1 0%, #0000FF 50%, #191970 100%)',
+      description: 'Neptune is the eighth and outermost planet in our solar system.',
+      funFact: 'Neptune has the strongest winds in the solar system, reaching speeds of up to 1,200 mph!',
+      orbitalPeriod: 60190,
+      dayLength: 16.1,
+      minTemp: -201,
+      maxTemp: -201,
+      moons: 16,
+      travelTime: '12 years',
+      lightTime: '4.2 hours'
+    }
+  ];
+
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null);
   const [scaleMultiplier, setScaleMultiplier] = useState<number>(1);
   const [activePlanet, setActivePlanet] = useState<string | null>(null);
