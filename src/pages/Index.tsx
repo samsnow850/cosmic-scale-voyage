@@ -1,8 +1,15 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search, Play, Pause, RotateCcw, Zap, Rocket, Eye, EyeOff } from 'lucide-react';
 import Planet from '../components/Planet';
 import PlanetOverlay from '../components/PlanetOverlay';
+import ComparisonPanel from '../components/ComparisonPanel';
+import InfoPanel from '../components/InfoPanel';
+import AsteroidBelt from '../components/AsteroidBelt';
+import OrbitalPaths from '../components/OrbitalPaths';
+import { Link } from 'react-router-dom';
 
 interface PlanetData {
   name: string;
@@ -13,96 +20,27 @@ interface PlanetData {
   color: string;
   description: string;
   funFact: string;
+  orbitalPeriod: number; // in Earth days
+  dayLength: number; // in Earth hours
+  minTemp: number; // in Celsius
+  maxTemp: number; // in Celsius
+  moons: number;
+  travelTime: string; // spacecraft travel time
+  lightTime: string; // light travel time from Earth
 }
 
 const Index = () => {
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null);
   const [scaleMultiplier, setScaleMultiplier] = useState<number>(1);
   const [activePlanet, setActivePlanet] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isAnimating, setIsAnimating] = useState<boolean>(true);
+  const [timeSpeed, setTimeSpeed] = useState<number>(1);
+  const [comparisonPlanets, setComparisonPlanets] = useState<PlanetData[]>([]);
+  const [showOrbitalPaths, setShowOrbitalPaths] = useState<boolean>(true);
+  const [showSizeComparison, setShowSizeComparison] = useState<boolean>(false);
+  const [showLightVisualization, setShowLightVisualization] = useState<boolean>(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const planetsData: PlanetData[] = [
-    {
-      name: 'Mercury',
-      realDiameter: 4879,
-      scaledSize: 0.2,
-      distanceAU: 0.39,
-      distanceInches: 39,
-      color: 'linear-gradient(135deg, #8C7853 0%, #FAD643 100%)',
-      description: 'The smallest planet and closest to the Sun. Mercury has extreme temperature variations and no atmosphere.',
-      funFact: 'A day on Mercury lasts 176 Earth days!'
-    },
-    {
-      name: 'Venus',
-      realDiameter: 12104,
-      scaledSize: 0.5,
-      distanceAU: 0.72,
-      distanceInches: 72,
-      color: 'linear-gradient(135deg, #FFC649 0%, #FFB347 100%)',
-      description: 'The hottest planet in our solar system with a thick, toxic atmosphere of carbon dioxide.',
-      funFact: 'Venus spins in the opposite direction of most planets.'
-    },
-    {
-      name: 'Earth',
-      realDiameter: 12742,
-      scaledSize: 0.5,
-      distanceAU: 1.00,
-      distanceInches: 100,
-      color: 'linear-gradient(135deg, #6B93D6 0%, #4D79A4 100%)',
-      description: 'Our home planet, the only known planet to harbor life. Earth has liquid water and a protective atmosphere.',
-      funFact: 'Earth is the only planet not named after a god.'
-    },
-    {
-      name: 'Mars',
-      realDiameter: 6779,
-      scaledSize: 0.3,
-      distanceAU: 1.52,
-      distanceInches: 152,
-      color: 'linear-gradient(135deg, #CD5C5C 0%, #A0522D 100%)',
-      description: 'The "Red Planet" with the largest volcano and canyon in the solar system. Mars may have had liquid water in the past.',
-      funFact: 'Mars has the largest dust storms in the solar system.'
-    },
-    {
-      name: 'Jupiter',
-      realDiameter: 139820,
-      scaledSize: 5.5,
-      distanceAU: 5.20,
-      distanceInches: 520,
-      color: 'linear-gradient(135deg, #D8CA9D 0%, #FAD5A5 50%, #8B4513 100%)',
-      description: 'The largest planet in our solar system. Jupiter is a gas giant with over 80 moons and a Great Red Spot storm.',
-      funFact: 'Jupiter\'s Great Red Spot has been raging for over 400 years!'
-    },
-    {
-      name: 'Saturn',
-      realDiameter: 116460,
-      scaledSize: 4.6,
-      distanceAU: 9.54,
-      distanceInches: 950,
-      color: 'linear-gradient(135deg, #FAD5A5 0%, #D2B48C 100%)',
-      description: 'Famous for its beautiful ring system. Saturn is a gas giant that could float in water due to its low density.',
-      funFact: 'Saturn\'s rings are made of billions of ice particles.'
-    },
-    {
-      name: 'Uranus',
-      realDiameter: 50724,
-      scaledSize: 2.0,
-      distanceAU: 19.19,
-      distanceInches: 1920,
-      color: 'linear-gradient(135deg, #4FD0E7 0%, #3F8FBF 100%)',
-      description: 'An ice giant that rotates on its side. Uranus has a faint ring system and 27 known moons.',
-      funFact: 'Uranus rotates on its side like a rolling ball.'
-    },
-    {
-      name: 'Neptune',
-      realDiameter: 49244,
-      scaledSize: 2.0,
-      distanceAU: 30.06,
-      distanceInches: 3010,
-      color: 'linear-gradient(135deg, #4B70DD 0%, #1E3A8A 100%)',
-      description: 'The windiest planet with speeds up to 2,100 km/h. Neptune is the furthest planet from the Sun.',
-      funFact: 'Neptune was discovered by mathematical predictions!'
-    }
-  ];
 
   // Detect which planet is in view
   useEffect(() => {
@@ -147,16 +85,60 @@ const Index = () => {
     return 200 + (distanceInches * 4 * scaleMultiplier); // Start 200px from left, then scale distances
   };
 
-  const totalWidth = getPosition(3010) + 400; // Neptune's position + extra space
+  const filteredPlanets = planetsData.filter(planet =>
+    planet.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // Handle scale slider change
-  const handleScaleChange = (value: number[]) => {
-    setScaleMultiplier(value[0]);
+  const jumpToPlanet = (planetName: string) => {
+    const planet = planetsData.find(p => p.name === planetName);
+    if (planet && scrollContainerRef.current) {
+      const planetPosition = getPosition(planet.distanceInches);
+      scrollContainerRef.current.scrollTo({
+        left: planetPosition - window.innerWidth / 2,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const addToComparison = (planet: PlanetData) => {
+    if (comparisonPlanets.length < 2 && !comparisonPlanets.find(p => p.name === planet.name)) {
+      setComparisonPlanets([...comparisonPlanets, planet]);
+    }
+  };
+
+  const removeFromComparison = (planetName: string) => {
+    setComparisonPlanets(comparisonPlanets.filter(p => p.name !== planetName));
+  };
+
+  const playPlanetSound = (planetName: string) => {
+    // Simple audio feedback using Web Audio API
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Different frequencies for different planets
+    const frequencies: { [key: string]: number } = {
+      'Mercury': 523.25, 'Venus': 587.33, 'Earth': 659.25, 'Mars': 698.46,
+      'Jupiter': 261.63, 'Saturn': 293.66, 'Uranus': 329.63, 'Neptune': 349.23
+    };
+    
+    oscillator.frequency.setValueAtTime(frequencies[planetName] || 440, audioContext.currentTime);
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
+    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
   };
 
   return (
     <div className="min-h-screen bg-black overflow-auto">
-      {/* Stars background */}
+      {/* Enhanced Stars background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0" style={{
           backgroundImage: `
@@ -169,48 +151,132 @@ const Index = () => {
             radial-gradient(2px 2px at 240px 90px, white, transparent),
             radial-gradient(1px 1px at 280px 20px, white, transparent),
             radial-gradient(1px 1px at 320px 70px, white, transparent),
-            radial-gradient(2px 2px at 360px 40px, white, transparent)
+            radial-gradient(2px 2px at 360px 40px, white, transparent),
+            radial-gradient(3px 3px at 100px 120px, #FFD700, transparent),
+            radial-gradient(2px 2px at 300px 150px, #87CEEB, transparent),
+            radial-gradient(1px 1px at 500px 80px, #FFA500, transparent)
           `,
           backgroundRepeat: 'repeat',
-          backgroundSize: '400px 100px'
+          backgroundSize: '600px 200px'
         }} />
       </div>
 
-      {/* Header */}
-      <div className="relative z-10 p-6 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-2 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-          Scale of the Solar System
-        </h1>
-        <p className="text-xl text-gray-300 mb-1">Interactive Mini-Project</p>
-        <p className="text-lg text-gray-400 mb-4">By Samuel Snow • Chemistry & Earth and Space Science - C</p>
-        <p className="text-sm text-gray-500 mb-6">Click on any planet to explore its details • 1 AU = 10 inches</p>
-      </div>
-
-      {/* Scale Slider */}
-      <div className="relative z-10 max-w-md mx-auto mb-6 px-6">
-        <div className="flex items-center mb-2">
-          <span className="text-gray-400 text-sm mr-2">Compress</span>
-          <Slider 
-            defaultValue={[1]} 
-            min={0.1} 
-            max={1} 
-            step={0.05}
-            onValueChange={handleScaleChange}
-            className="mx-2"
-          />
-          <span className="text-gray-400 text-sm ml-2">Actual Scale</span>
+      {/* Header with navigation */}
+      <div className="relative z-10 p-6">
+        <div className="flex justify-between items-center mb-4">
+          <div className="text-center flex-1">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-2 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+              Scale of the Solar System
+            </h1>
+            <p className="text-xl text-gray-300 mb-1">Interactive Mini-Project</p>
+            <p className="text-lg text-gray-400 mb-4">By Samuel Snow • Chemistry & Earth and Space Science - C</p>
+          </div>
+          <div className="flex gap-2">
+            <Link to="/quiz">
+              <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+                Quiz Mode
+              </Button>
+            </Link>
+          </div>
         </div>
-        <p className="text-xs text-center text-gray-500">
-          Adjust this slider to visualize compressed distances while preserving relative scales
-        </p>
+
+        {/* Search and Controls */}
+        <div className="flex flex-wrap gap-4 justify-center items-center mb-6">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Input
+              placeholder="Search planets..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 bg-gray-800 border-gray-600 text-white w-48"
+            />
+          </div>
+          
+          <Button
+            onClick={() => setIsAnimating(!isAnimating)}
+            variant="outline"
+            size="sm"
+            className="text-white border-white"
+          >
+            {isAnimating ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+          </Button>
+          
+          <Button
+            onClick={() => setShowOrbitalPaths(!showOrbitalPaths)}
+            variant="outline"
+            size="sm"
+            className="text-white border-white"
+          >
+            {showOrbitalPaths ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            Orbits
+          </Button>
+          
+          <Button
+            onClick={() => setShowLightVisualization(!showLightVisualization)}
+            variant="outline"
+            size="sm"
+            className="text-white border-white"
+          >
+            <Zap className="w-4 h-4" />
+            Light Speed
+          </Button>
+          
+          <Button
+            onClick={() => setShowSizeComparison(!showSizeComparison)}
+            variant="outline"
+            size="sm"
+            className="text-white border-white"
+          >
+            Size Mode
+          </Button>
+        </div>
+
+        {/* Search Results */}
+        {searchTerm && (
+          <div className="max-w-md mx-auto mb-4">
+            <div className="bg-gray-800 rounded-lg p-2">
+              {filteredPlanets.map(planet => (
+                <button
+                  key={planet.name}
+                  onClick={() => jumpToPlanet(planet.name)}
+                  className="w-full text-left p-2 hover:bg-gray-700 rounded text-white"
+                >
+                  {planet.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Scale Slider */}
+        <div className="max-w-md mx-auto mb-6">
+          <div className="flex items-center mb-2">
+            <span className="text-gray-400 text-sm mr-2">Compress</span>
+            <Slider 
+              defaultValue={[1]} 
+              min={0.1} 
+              max={1} 
+              step={0.05}
+              onValueChange={(value) => setScaleMultiplier(value[0])}
+              className="mx-2"
+            />
+            <span className="text-gray-400 text-sm ml-2">Actual Scale</span>
+          </div>
+          <p className="text-xs text-center text-gray-500">
+            Adjust this slider to visualize compressed distances while preserving relative scales
+          </p>
+        </div>
       </div>
 
       {/* Solar System Container */}
       <div ref={scrollContainerRef} className="relative z-10 h-96 overflow-x-auto overflow-y-hidden">
         <div 
           className="relative h-full"
-          style={{ width: `${totalWidth}px` }}
+          style={{ width: `${getPosition(3010) + 400}px` }}
         >
+          {/* Orbital Paths */}
+          {showOrbitalPaths && <OrbitalPaths planetsData={planetsData} getPosition={getPosition} />}
+
           {/* Sun */}
           <div className="absolute left-16 top-1/2 transform -translate-y-1/2 flex items-center justify-center">
             <div 
@@ -224,19 +290,24 @@ const Index = () => {
             </div>
           </div>
 
+          {/* Asteroid Belt */}
+          <AsteroidBelt getPosition={getPosition} scaleMultiplier={scaleMultiplier} />
+
           {/* Planets */}
           {planetsData.map((planet) => (
             <Planet
               key={planet.name}
-              name={planet.name}
-              realDiameter={planet.realDiameter}
-              scaledSize={planet.scaledSize}
-              distanceAU={planet.distanceAU}
-              distanceInches={planet.distanceInches}
-              color={planet.color}
+              {...planet}
               position={getPosition(planet.distanceInches)}
-              onClick={() => setSelectedPlanet(planet)}
-              funFact={planet.funFact}
+              onClick={() => {
+                setSelectedPlanet(planet);
+                playPlanetSound(planet.name);
+              }}
+              onAddToComparison={() => addToComparison(planet)}
+              isAnimating={isAnimating}
+              timeSpeed={timeSpeed}
+              showSizeComparison={showSizeComparison}
+              showLightVisualization={showLightVisualization}
             />
           ))}
 
@@ -256,19 +327,32 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Info Panel */}
+      <InfoPanel activePlanet={activePlanet} planetsData={planetsData} />
+
       {/* Instructions */}
       <div className="relative z-10 p-6 text-center">
         <p className="text-gray-400 text-sm max-w-2xl mx-auto">
           Scroll horizontally to explore the vast distances between planets. 
-          This model demonstrates the true scale of our solar system - notice how much empty space exists between the planets!
+          Click planets for details, use search to jump to specific planets, and try the quiz mode!
         </p>
       </div>
 
       {/* Planet Overlay */}
       <PlanetOverlay 
         planet={selectedPlanet} 
-        onClose={() => setSelectedPlanet(null)} 
+        onClose={() => setSelectedPlanet(null)}
+        onAddToComparison={addToComparison}
       />
+
+      {/* Comparison Panel */}
+      {comparisonPlanets.length > 0 && (
+        <ComparisonPanel
+          planets={comparisonPlanets}
+          onRemove={removeFromComparison}
+          onClose={() => setComparisonPlanets([])}
+        />
+      )}
     </div>
   );
 };
