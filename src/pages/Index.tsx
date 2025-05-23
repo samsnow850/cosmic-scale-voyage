@@ -320,6 +320,11 @@ const Index = () => {
                 Changelog
               </Button>
             </Link>
+            <Link to="/mobile">
+              <Button className="bg-green-600 border-green-500 hover:bg-green-700 text-white border-2 w-full">
+                📱 Mobile Mode
+              </Button>
+            </Link>
           </div>
         </div>
 

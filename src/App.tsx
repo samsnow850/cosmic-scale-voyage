@@ -9,6 +9,8 @@ import Quiz from "./pages/Quiz";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import Changelog from "./pages/Changelog";
+import Mobile from "./pages/Mobile";
+import MobileQuiz from "./pages/MobileQuiz";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,8 @@ const App = () => (
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/changelog" element={<Changelog />} />
+          <Route path="/mobile" element={<Mobile />} />
+          <Route path="/mobile-quiz" element={<MobileQuiz />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
